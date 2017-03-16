@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "481045546265",
+    "firebase_url": "https://babynursing-a011f.firebaseio.com",
+    "project_id": "babynursing-a011f",
+    "storage_bucket": "babynursing-a011f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481045546265:android:3c18045e42bade49",
+        "android_client_info": {
+          "package_name": "com.sevenlogics.babynursing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481045546265-uotsg59u97g4qhdsqopdh2l0ud3me52q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sevenlogics.babynursing",
+            "certificate_hash": "16251965A1AB01B18B0EAAC8A8F271CAFA8E4407"
+          }
+        },
+        {
+          "client_id": "481045546265-r60br7hemlt5t77s87t5gtf3kkifc0pa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBL2DazHMjsHogvPXKWq5LNSw8Sk1AnU6g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481045546265-c6uagmee1rafato3oo9m3hp6imdsmcb5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sevenlogics.BabyNursing"
+              }
+            },
+            {
+              "client_id": "481045546265-r60br7hemlt5t77s87t5gtf3kkifc0pa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

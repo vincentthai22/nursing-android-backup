@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="8dp"
+            tools:layout_editor_absoluteX="8dp">
+
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:layout_marginTop="51dp"
+                    android:id="@+id/baby_name_edit_text"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:hint="Name" />
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="17dp"
+            android:id="@+id/baby_dob_edit_text"
+            android:layout_below="@+id/baby_name_edit_text"
+            android:layout_alignStart="@+id/baby_name_edit_text"
+            android:hint="Birthday"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:cursorVisible="false"
+            android:inputType="none" />
+
+        <Spinner
+            android:layout_height="wrap_content"
+            android:id="@+id/baby_gender_spinner"
+            android:layout_below="@+id/baby_dob_edit_text"
+            android:layout_alignStart="@+id/baby_dob_edit_text"
+            android:layout_marginTop="24dp"
+            android:layout_width="150dp" />
+
+        <Spinner
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/baby_blood_spinner"
+            android:layout_alignTop="@+id/baby_gender_spinner"
+            android:layout_toEndOf="@+id/baby_gender_spinner" />
+</RelativeLayout>

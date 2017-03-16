@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.sevenlogics.babynursing.NursingDetailActivity"
+    tools:showIn="@layout/activity_nursing_detail">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    style="@style/sectionHeaderBgStyle"
+                    >
+
+                        <TextView
+                            android:text="Breast"
+                            style="@style/sectionHeaderTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="13dp"
+                            android:id="@+id/textView12" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/relativeLayout"
+                    android:layout_alignParentStart="true">
+
+                        <Button
+                            android:text="R"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/button_breast_right"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true" />
+
+                        <Button
+                            android:text="L"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/button_breast_left"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    style="@style/sectionHeaderBgStyle"
+                    >
+
+                        <TextView
+                            android:text="Date &amp; Time"
+                            style="@style/sectionHeaderTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="13dp"
+                            android:id="@+id/textView13" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    style="@style/sectionValueBgStyle"
+                    android:layout_below="@+id/relativeLayout"
+                    android:layout_alignParentStart="true">
+
+
+                        <TextView
+                            android:text="Start"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="14dp"
+                            android:id="@+id/nursing_detail_start_textview"
+                            android:layout_alignParentTop="true"
+                            style="@style/subHeaderTextViewStyle"
+                            />
+
+                        <TextView
+                            android:text="2/28/2017"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/nursing_detail_start_date_textview"
+                            android:layout_alignBaseline="@+id/nursing_detail_start_textview"
+                            android:layout_alignBottom="@+id/nursing_detail_start_textview"
+                            android:layout_toEndOf="@+id/nursing_detail_start_textview"
+                            android:layout_marginStart="79dp"
+                            style="@style/valueTextViewStyle"
+                            />
+
+                        <TextView
+                            android:text="10:54 am"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/nursing_detail_start_time_textview"
+                            android:layout_marginStart="22dp"
+                            android:layout_alignBaseline="@+id/nursing_detail_start_date_textview"
+                            android:layout_alignBottom="@+id/nursing_detail_start_date_textview"
+                            android:layout_toEndOf="@+id/nursing_detail_start_date_textview"
+                            style="@style/valueTextViewStyle"
+                            />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    style="@style/sectionValueBgStyle"
+                    android:layout_below="@+id/relativeLayout"
+                    android:layout_alignParentStart="true">
+
+
+                        <TextView
+                            android:text="End"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="14dp"
+                            android:id="@+id/nursing_detail_end_textview"
+                            android:layout_alignParentTop="true"
+                            style="@style/subHeaderTextViewStyle"
+                            />
+
+                        <TextView
+                            android:text="2/28/2017"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/nursing_detail_end_date_textview"
+                            android:layout_alignBaseline="@+id/nursing_detail_end_textview"
+                            android:layout_alignBottom="@+id/nursing_detail_end_textview"
+                            android:layout_toEndOf="@+id/nursing_detail_end_textview"
+                            android:layout_marginStart="79dp"
+                            style="@style/valueTextViewStyle"
+                            />
+
+                        <TextView
+                            android:text="11:54 am"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/nursing_detail_end_time_textview"
+                            android:layout_marginStart="22dp"
+                            android:layout_alignBaseline="@+id/nursing_detail_end_date_textview"
+                            android:layout_alignBottom="@+id/nursing_detail_end_date_textview"
+                            android:layout_toEndOf="@+id/nursing_detail_end_date_textview"
+                            style="@style/valueTextViewStyle"
+                            />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    style="@style/sectionValueBgStyle"
+                    android:layout_below="@+id/relativeLayout"
+                    android:layout_alignParentStart="true">
+
+
+                        <TextView
+                            android:text="Duration"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="14dp"
+                            android:id="@+id/nursing_detail_duration_textview"
+                            android:layout_alignParentTop="true"
+                            style="@style/subHeaderTextViewStyle"
+                            />
+
+                        <TextView
+                            android:text="0 hours 20 minutes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/nursing_detail_duration_value_textview"
+                            android:layout_alignBaseline="@+id/nursing_detail_duration_textview"
+                            android:layout_alignBottom="@+id/nursing_detail_duration_textview"
+                            android:layout_toEndOf="@+id/nursing_detail_duration_textview"
+                            android:layout_marginStart="79dp"
+                            style="@style/valueTextViewStyle"
+                            />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    style="@style/sectionHeaderBgStyle"
+                    >
+
+                        <TextView
+                            android:text="Position / Hold"
+                            style="@style/sectionHeaderTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="13dp"
+                            android:id="@+id/textView14" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    style="@style/sectionValueBgStyle"
+                    android:layout_below="@+id/relativeLayout"
+                    android:layout_alignParentStart="true">
+
+
+                        <TextView
+                            android:text="Position"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="14dp"
+                            android:id="@+id/nursing_detail_position_textview"
+                            android:layout_alignParentTop="true"
+                            style="@style/subHeaderTextViewStyle"
+                            />
+
+                        <TextView
+                            android:text="Football hold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/nursing_detail_position_value_textview"
+                            android:layout_alignBaseline="@+id/nursing_detail_position_textview"
+                            android:layout_alignBottom="@+id/nursing_detail_position_textview"
+                            android:layout_toEndOf="@+id/nursing_detail_position_textview"
+                            android:layout_marginStart="79dp"
+                            style="@style/valueTextViewStyle"
+                            />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    style="@style/sectionHeaderBgStyle"
+                    >
+
+                        <TextView
+                            android:text="Weight"
+                            style="@style/sectionHeaderTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="13dp"
+                            android:id="@+id/nursing_detail_weight_textview" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    style="@style/sectionValueBgStyle"
+                    android:layout_below="@+id/relativeLayout"
+                    android:layout_alignParentStart="true">
+
+
+                        <TextView
+                            android:text="Before"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="14dp"
+                            android:id="@+id/nursing_detail_weight_before_textview"
+                            android:layout_alignParentTop="true"
+                            style="@style/subHeaderTextViewStyle"
+                            />
+
+                        <TextView
+                            android:text="6 lb 2 oz"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/nursing_detail_weight_before_value_textview"
+                            android:layout_alignBaseline="@+id/nursing_detail_weight_before_textview"
+                            android:layout_alignBottom="@+id/nursing_detail_weight_before_textview"
+                            android:layout_toEndOf="@+id/nursing_detail_weight_before_textview"
+                            android:layout_marginStart="79dp"
+                            style="@style/valueTextViewStyle"
+                            />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    style="@style/sectionValueBgStyle"
+                    android:layout_below="@+id/relativeLayout"
+                    android:layout_alignParentStart="true">
+
+
+                        <TextView
+                            android:text="After"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="14dp"
+                            android:id="@+id/nursing_detail_weight_after_textview"
+                            android:layout_alignParentTop="true"
+                            style="@style/subHeaderTextViewStyle"
+                            />
+
+                        <TextView
+                            android:text="6 lb 6 oz"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/nursing_detail_weight_after_value_textview"
+                            android:layout_alignBaseline="@+id/nursing_detail_weight_after_textview"
+                            android:layout_alignBottom="@+id/nursing_detail_weight_after_textview"
+                            android:layout_toEndOf="@+id/nursing_detail_weight_after_textview"
+                            android:layout_marginStart="79dp"
+                            style="@style/valueTextViewStyle"
+                            />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    style="@style/sectionValueBgStyle"
+                    android:layout_below="@+id/relativeLayout"
+                    android:layout_alignParentStart="true">
+
+
+                        <TextView
+                            android:text="Amount Fed"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="14dp"
+                            android:id="@+id/nursing_detail_amount_fed_textview"
+                            android:layout_alignParentTop="true"
+                            style="@style/subHeaderTextViewStyle"
+                            />
+
+                        <TextView
+                            android:text="4 oz"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/nursing_detail_amount_fed_value_textview"
+                            android:layout_alignBaseline="@+id/nursing_detail_amount_fed_textview"
+                            android:layout_alignBottom="@+id/nursing_detail_amount_fed_textview"
+                            android:layout_toEndOf="@+id/nursing_detail_amount_fed_textview"
+                            android:layout_marginStart="79dp"
+                            style="@style/valueTextViewStyle"
+                            />
+                </RelativeLayout>
+
+        </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

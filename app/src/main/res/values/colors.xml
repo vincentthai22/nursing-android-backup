@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+    <color name="colorPrimary">#F28282</color>
+    <color name="colorPrimaryDark">#E38A8A</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorTimerBg">#fff4f4</color>
+    <color name="colorText">#FFFFFF</color>
+    <color name="colorSectionHeaderBg">#EEEEEE</color>
+    <color name="colorModuleToolbarBg">#EEEEEE</color>
+</resources>
