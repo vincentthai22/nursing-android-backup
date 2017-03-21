@@ -4,6 +4,8 @@ package com.sevenlogics.babynursing;
  * Created by stevenchan1 on 3/13/17.
  */
 
+import android.util.Log;
+
 import com.sevenlogics.babynursing.AppConstants;
 import com.sevenlogics.babynursing.Couchbase.BaseEntity;
 import com.sevenlogics.babynursing.Couchbase.GeneralTracking;
@@ -22,6 +24,8 @@ public class BabyManager {
     public static BabyManager getInstance() {
         return ourInstance;
     }
+
+    private final static String TAG = "BabyManager";
 
     private Hashtable<String, Number> pumpingBorder, bottleBorder, nursingBorder;
 
@@ -52,6 +56,8 @@ public class BabyManager {
 
         while (indexToCompare >= 0 && indexToCompare < recordCount)
         {
+            Log.d(TAG, "What is class " + records.get(indexToCompare).getClass());
+
             if (records.get(indexToCompare).getClass().getSuperclass() == GeneralTracking.class)
             {
                 break;
@@ -60,7 +66,7 @@ public class BabyManager {
             indexToCompare = checkGroupStart ? indexToCompare - 1 : indexToCompare + 1;
         }
 
-        if ((checkGroupStart && indexToCompare < 0) || (!checkGroupStart && indexToCompare > recordCount))
+        if ((checkGroupStart && indexToCompare < 0) || (!checkGroupStart && indexToCompare >= recordCount))
         {
             return true;
         }
@@ -75,6 +81,9 @@ public class BabyManager {
 
             if (CgUtils.midnight(time1).equals(CgUtils.midnight(time2)))
             {
+                Log.d(TAG, "Wat is time diff: " + CgUtils.timeDifference(time1,time2));
+                Log.d(TAG, "Wat is time diff: " + Math.abs(CgUtils.timeDifference(time1,time2)));
+
                 if (Math.abs(CgUtils.timeDifference(time1,time2)) > groupingInterval)
                 {
                     return true;
@@ -122,6 +131,8 @@ public class BabyManager {
         Integer borderMask = checkGroupStart ? AppConstants.TOP_BORDER : AppConstants.BOTTOM_BORDER;
 
         Integer result = borderValue.intValue() & borderMask;
+
+        Boolean bResult = (result != 0);
 
         return (result != 0);
     }
@@ -176,6 +187,8 @@ public class BabyManager {
         {
             groupingInterval = UserSettings.getInstance().nursingTrackingSetting.groupingInterval;
         }
+
+        groupingInterval *= 60;
 
         return groupingInterval;
     }

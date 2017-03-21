@@ -22,4 +22,5 @@ public class NursingBaseTableSection extends TableViewSection
 
     public float bothBreastAvgInSeconds, bothBreastTotalInSeconds;
     public float bottleAvgAmount, bottleTotalAmount;
+
 }

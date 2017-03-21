@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = MainActivity.class.getSimpleName();
     public static final String INTENT_KEY_BABY_ID = "INTENT_KEY_BABY_ID";
+    public static final String INTENT_KEY_NURSING_ID = "INTENT_KEY_NURSING_ID";
 
     private ArrayList<Baby> mAllBabies;
 
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity
         //Initiate CouchbaseManager
         CouchbaseManager.getInstance().setup(getApplicationContext());
 
-//        CouchbaseManager.getInstance().startPull(true);
+        //CouchbaseManager.getInstance().startPull(true);
 //        CouchbaseManager.getInstance().allDocumentTesting();
 
         mAllBabies = CouchbaseManager.getInstance().allBabies();
@@ -84,6 +85,10 @@ public class MainActivity extends AppCompatActivity
                      if (trackingModule.title.equals("Nursing"))
                      {
                          detailIntent = new Intent(context, NursingActivity.class);
+                     }
+                     else if(trackingModule.title.equals("Pumping"))
+                     {
+                         detailIntent = new Intent(context, PumpingActivity.class);
                      }
                      else
                      {

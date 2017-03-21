@@ -1,5 +1,8 @@
 package com.sevenlogics.babynursing.Couchbase;
 
+import android.util.Log;
+
+import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;
 import com.couchbase.lite.UnsavedRevision;
@@ -8,6 +11,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by stevenchan1 on 1/13/17.
@@ -15,6 +20,8 @@ import java.util.Date;
 
 @JsonIgnoreProperties({"document"})
 public class BaseModel {
+
+    private final static String TAG = "BaseModel";
 
     public ArrayList<String> cblChannel;
 
@@ -93,9 +100,29 @@ public class BaseModel {
         deleteModel(false);
     }
 
-
     public String docType()
     {
         return "";
+    }
+
+    public void save()
+    {
+        ObjectMapper mObjectMapper = CouchbaseManager.getInstance().getObjectMapper();
+        Map<String, Object> updatedProperties = new HashMap<String, Object>();
+
+        updatedProperties.putAll(document.getProperties());
+        updatedProperties.putAll(mObjectMapper.convertValue(this,Map.class));
+
+        try
+        {
+            Log.d(TAG,"What is updated properties" + updatedProperties);
+
+            document.putProperties(updatedProperties);
+            Log.d(TAG, "Success put properties");
+        }
+        catch (CouchbaseLiteException e) {
+            Log.e(TAG,"Error putting: " + e);
+            e.printStackTrace();
+        }
     }
 }

@@ -258,6 +258,29 @@ public class TrackingSetting extends BaseModel
         }
     }
 
+    public void nextDate()
+    {
+        if (getDateSelection() != null)
+        {
+            if (getDateSelection().equals(AppConstants.DATE_SELECTION_TODAY))
+            {
+                startDateData = CgUtils.addUnitToDate(getStartDate(),Calendar.DATE, 1);
+                endDateData = CgUtils.addUnitToDate(getEndDate(),Calendar.DATE, 1);
+            }
+            else if (getDateSelection().equals(AppConstants.DATE_SELECTION_THIS_WEEK))
+            {
+                startDateData = CgUtils.addUnitToDate(getStartDate(),Calendar.DATE, 7);
+                endDateData = CgUtils.addUnitToDate(getEndDate(),Calendar.DATE, 7);
+            }
+            else if (getDateSelection().equals(AppConstants.DATE_SELECTION_THIS_MONTH))
+            {
+                startDateData = CgUtils.addUnitToDate(getStartDate(),Calendar.MONTH, 1);
+                endDateData = CgUtils.addUnitToDate(getEndDate(),Calendar.MONTH, 1);
+            }
+            setPagingOffset(getPagingOffset() + 1);
+        }
+    }
+
 
     public void backDate()
     {

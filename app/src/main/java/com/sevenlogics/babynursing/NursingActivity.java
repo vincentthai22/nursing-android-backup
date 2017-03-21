@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.sevenlogics.babynursing.Couchbase.Baby;
+import com.sevenlogics.babynursing.Couchbase.Nursing;
 import com.sevenlogics.babynursing.Couchbase.TrackingSetting;
 import com.sevenlogics.babynursing.Couchbase.UserSettings;
 import com.sevenlogics.babynursing.TableSection.NursingDailyTableSection;
@@ -25,6 +26,7 @@ import com.sevenlogics.babynursing.utils.HeaderListView;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by stevenchan1 on 2/23/17.
@@ -95,6 +97,15 @@ public class NursingActivity extends AppCompatActivity
             }
         });
 
+        mNextButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                mNursingSetting.nextDate();
+                changeToolbarNextPrevTitle();
+                buildTableSections();
+            }
+        });
     }
 
     @Override
@@ -158,6 +169,7 @@ public class NursingActivity extends AppCompatActivity
 
         NursingAdapter nursingAdapter = (NursingAdapter) mListView.getListView().getAdapter();
 
+        nursingAdapter.noRecordsForDateRange = noRecordsForDateRange;
         nursingAdapter.setupData(tableSections);
 
     }

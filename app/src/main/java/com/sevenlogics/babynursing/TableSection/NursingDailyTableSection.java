@@ -22,7 +22,8 @@ import com.sevenlogics.babynursing.UnitConversionUtil;
 public class NursingDailyTableSection extends NursingBaseTableSection
 {
     public Date date;
-    Boolean expanded;
+    public Boolean expanded = false;
+
     Integer sectionIndex;
     ArrayList<Nursing> leftBreastNursingRecords = new ArrayList<>();
     ArrayList<Nursing> rightBreastNursingRecords = new ArrayList<>();
@@ -192,6 +193,10 @@ public class NursingDailyTableSection extends NursingBaseTableSection
                 {
                     wasEmptySlot = true;
                 }
+            }
+            else
+            {
+                wasEmptySlot = true;
             }
         }
 

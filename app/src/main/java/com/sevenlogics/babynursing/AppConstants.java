@@ -14,6 +14,7 @@ public class AppConstants {
     public final static Integer EMPTY_TIME_SLOT_INTERVAL_IN_SECONDS = 3600;
 
     public final static String DATE_FORMAT = "MMM d, yyyy";
+    public final static String TIME_FORMAT = "";
 
     public final static Integer TOP_BORDER = 1;
     public final static Integer BOTTOM_BORDER = 2;

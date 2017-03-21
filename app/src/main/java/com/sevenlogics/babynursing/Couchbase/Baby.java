@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.sym.NameN;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sevenlogics.babynursing.AppConstants;
 import com.sevenlogics.babynursing.BabyManager;
+import com.sevenlogics.babynursing.EmptySlotData;
 import com.sevenlogics.babynursing.TableSection.NursingDailyTableSection;
 import com.sevenlogics.babynursing.utils.CgUtils;
 
@@ -69,26 +70,7 @@ public class Baby extends BaseEntity implements Serializable
         return DOC_TYPE_BABY;
     }
 
-    public void save()
-    {
-        ObjectMapper mObjectMapper = CouchbaseManager.getInstance().getObjectMapper();
-        Map<String, Object> updatedProperties = new HashMap<String, Object>();
 
-        updatedProperties.putAll(document.getProperties());
-        updatedProperties.putAll(mObjectMapper.convertValue(this,Map.class));
-
-        try
-        {
-            Log.d(TAG,"What is updated properties" + updatedProperties);
-
-            document.putProperties(updatedProperties);
-            Log.d(TAG, "Success put properties");
-        }
-        catch (CouchbaseLiteException e) {
-            Log.e(TAG,"Error putting: " + e);
-            e.printStackTrace();
-        }
-    }
 
 
 
@@ -237,6 +219,8 @@ public class Baby extends BaseEntity implements Serializable
                     emptyDateIndex = CgUtils.addUnitToDate(dateIndex, Calendar.DATE, 1);
                     emptyDateIndex = CgUtils.addUnitToDate(emptyDateIndex, Calendar.SECOND, AppConstants.EMPTY_TIME_SLOT_INTERVAL_IN_SECONDS * -1);
 
+//                    Log.d(TAG, "What is section data " + dailyTableSection.sectionData);
+
                     dailyTableSection = NursingDailyTableSection.nursingDailyTableSection(dateIndex);
                     dailyTableSections.add(dailyTableSection);
                 }
@@ -265,7 +249,7 @@ public class Baby extends BaseEntity implements Serializable
                 hasInsertedEmptyDate = false;
 
                 prevNursingRecord = nursingRecord;
-                Log.d(TAG, "What is loop data now: " + dailyTableSection.sectionData);
+//                Log.d(TAG, "What is loop data now: " + dailyTableSection.sectionData);
             }
 
 //            Log.d(TAG, "What is data now: " + dailyTableSection.sectionData);
@@ -281,6 +265,25 @@ public class Baby extends BaseEntity implements Serializable
 
             prevNursingRecord = null;
         }
+
+
+//        for (NursingDailyTableSection dailyTableSection:dailyTableSections
+//             ) {
+//            for (Object object:dailyTableSection.sectionData
+//                 )
+//            {
+//                if (object.getClass() == EmptySlotData.class)
+//                {
+//                    EmptySlotData emptySlotData = (EmptySlotData)object;
+//                    Log.d(TAG, "Empty time:" + emptySlotData.getDateString());
+//                }
+//                else if (object.getClass() == Nursing.class)
+//                {
+//                    Nursing nursing = (Nursing)object;
+//                    Log.d(TAG, "Nursing time:" + nursing.startTime);
+//                }
+//            }
+//        }
 
         return dailyTableSections;
     }

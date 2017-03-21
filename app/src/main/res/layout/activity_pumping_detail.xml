@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        style="@style/sectionHeaderBgStyle"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:gravity="left|center">
+
+        <TextView
+            android:id="@+id/amountPumpedHeaderTextView"
+            style="@style/sectionHeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:text="Amount Pumped" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/amountPumpedRelativeLayout"
+        style="@style/sectionValueBgStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:onClick="onClickHandler">
+
+        <TextView
+            android:id="@+id/amountPumpedDetailTextView"
+            style="@style/sectionHeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/amountPumpedTextView"
+            android:layout_alignBottom="@+id/amountPumpedTextView"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/amountPumpedTextView"
+            android:onClick="onClickHandler"
+            android:text="0 ozs" />
+
+        <TextView
+            android:id="@+id/amountPumpedTextView"
+            style="@style/subHeaderTextViewStyle"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="14dp"
+            android:onClick="onClickHandler"
+            android:text="Amount Pumped" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/leftBreastRelativeLayout"
+        style="@style/sectionValueBgStyle"
+        android:layout_width="match_parent"
+        android:onClick="onClickHandler">
+
+        <TextView
+            android:id="@+id/leftBreastDetailTextView"
+            style="@style/sectionHeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/leftBreastTextView"
+            android:layout_alignBottom="@+id/leftBreastTextView"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/leftBreastTextView"
+            android:onClick="onClickHandler"
+            android:text="12.4 ozs" />
+
+        <TextView
+            android:id="@+id/leftBreastTextView"
+            style="@style/subHeaderTextViewStyle"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="14dp"
+            android:onClick="onClickHandler"
+            android:text="Left breast" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rightBreastRelativeLayout"
+        style="@style/sectionValueBgStyle"
+        android:layout_width="match_parent"
+        android:onClick="onClickHandler">
+
+        <TextView
+            android:id="@+id/rightBreastDetailedTextView"
+            style="@style/sectionHeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/rightBreastTextView"
+            android:layout_alignBottom="@+id/rightBreastTextView"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/rightBreastTextView"
+            android:onClick="onClickHandler"
+            android:text="0.9 ozs" />
+
+        <TextView
+            android:id="@+id/rightBreastTextView"
+            style="@style/subHeaderTextViewStyle"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="14dp"
+            android:onClick="onClickHandler"
+            android:text="Right breast" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/sectionHeaderBgStyle"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:gravity="left|center">
+
+        <TextView
+            android:id="@+id/dateAndTimeSectionTextView"
+            style="@style/sectionHeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="13dp"
+            android:text="Date &amp; Time" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/startRelativeLayout"
+        style="@style/sectionValueBgStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:onClick="onClickHandler">
+
+        <TextView
+            android:id="@+id/startDetailTextView"
+            style="@style/sectionHeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/startTextView"
+            android:layout_marginLeft="30dp"
+            android:layout_toEndOf="@+id/startTextView"
+            android:onClick="onClickHandler"
+            android:text="03/21/2017 11:34 am" />
+
+        <TextView
+            android:id="@+id/startTextView"
+            style="@style/subHeaderTextViewStyle"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="14dp"
+            android:onClick="onClickHandler"
+            android:text="Start" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/endRelativeLayout"
+        style="@style/sectionValueBgStyle"
+        android:layout_width="match_parent"
+        android:onClick="onClickHandler">
+
+        <TextView
+            android:id="@+id/endDetailTextView"
+            style="@style/sectionHeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/endTextView"
+            android:layout_marginLeft="30dp"
+            android:layout_toEndOf="@+id/endTextView"
+            android:onClick="onClickHandler"
+            android:text="03/21/2017 11:35 am" />
+
+        <TextView
+            android:id="@+id/endTextView"
+            style="@style/subHeaderTextViewStyle"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="14dp"
+            android:onClick="onClickHandler"
+            android:text="End" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/durationRelativeLayout"
+        style="@style/sectionValueBgStyle"
+        android:layout_width="match_parent"
+        android:onClick="onClickHandler">
+
+        <TextView
+            android:id="@+id/durationDetailTextView"
+            style="@style/sectionHeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/durationTextView"
+            android:layout_marginLeft="30dp"
+            android:layout_toEndOf="@+id/durationTextView"
+            android:onClick="onClickHandler"
+            android:text="0 hours 1 minutes" />
+
+        <TextView
+            android:id="@+id/durationTextView"
+            style="@style/subHeaderTextViewStyle"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="14dp"
+            android:onClick="onClickHandler"
+            android:text="Duration" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/sectionHeaderBgStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="left|center">
+
+        <TextView
+            android:id="@+id/additionalInfoTextView"
+            style="@style/sectionHeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="13dp"
+            android:text="Additional Info" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/locationRelativeLayout"
+        style="@style/sectionValueBgStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:onClick="onClickHandler">
+
+        <TextView
+            android:id="@+id/locationDetailTextView"
+            style="@style/sectionHeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/locationTextView"
+            android:layout_alignBottom="@+id/locationTextView"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/locationTextView"
+            android:elevation="24dp"
+            android:onClick="onClickHandler"
+            android:text=" " />
+
+        <TextView
+            android:id="@+id/locationTextView"
+            style="@style/subHeaderTextViewStyle"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="14dp"
+            android:onClick="onClickHandler"
+            android:text="Location" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/notesRelativeLayout"
+        style="@style/sectionValueBgStyle"
+        android:layout_width="match_parent"
+        android:onClick="onClickHandler">
+
+        <TextView
+            android:id="@+id/notesDetailTextView"
+            style="@style/sectionHeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/notesTextView"
+            android:layout_alignBottom="@+id/notesTextView"
+            android:layout_marginLeft="30dp"
+            android:layout_toEndOf="@+id/notesTextView"
+            android:onClick="onClickHandler"
+            android:text=" " />
+
+        <TextView
+            android:id="@+id/notesTextView"
+            style="@style/subHeaderTextViewStyle"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="14dp"
+            android:onClick="onClickHandler"
+            android:text="Notes" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/addRelativeLayout"
+        style="@style/sectionValueBgStyle"
+        android:layout_width="match_parent"
+        android:onClick="onClickHandler">
+
+        <TextView
+            android:id="@+id/addDetailTextView"
+            style="@style/sectionHeaderTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/addTextView"
+            android:layout_alignBottom="@+id/addTextView"
+            android:layout_marginLeft="30dp"
+            android:layout_toEndOf="@+id/addTextView"
+            android:onClick="onClickHandler"
+            android:text=" " />
+
+        <TextView
+            android:id="@+id/addTextView"
+            style="@style/subHeaderTextViewStyle"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="14dp"
+            android:onClick="onClickHandler"
+            android:text="Add Photo/Video" />
+
+    </RelativeLayout>
+
+</LinearLayout>

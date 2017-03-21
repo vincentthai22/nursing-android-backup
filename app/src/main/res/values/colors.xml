@@ -8,4 +8,10 @@
     <color name="colorText">#FFFFFF</color>
     <color name="colorSectionHeaderBg">#EEEEEE</color>
     <color name="colorModuleToolbarBg">#EEEEEE</color>
+    <color name="pumpingHeaderCellBackground">#FF7E00</color>
+    <color name="startButtonBackground">#FFFFB2</color>
+    <color name="colorPrimaryPumping">#ff9800</color>
+    <color name="colorPrimaryDarkPumping">#f57c00</color>
+    <color name="colorAccentPumping">#ffab00</color>
+
 </resources>

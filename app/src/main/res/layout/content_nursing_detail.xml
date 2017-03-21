@@ -15,23 +15,22 @@
             android:orientation="vertical">
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="0dp"
                     style="@style/sectionHeaderBgStyle"
-                    >
+                    android:layout_width="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp">
 
                         <TextView
-                            android:text="Breast"
+                            android:id="@+id/textView12"
                             style="@style/sectionHeaderTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
                             android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginStart="13dp"
-                            android:id="@+id/textView12" />
+                            android:text="Breast" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -82,46 +81,43 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
                     style="@style/sectionValueBgStyle"
-                    android:layout_below="@+id/relativeLayout"
-                    android:layout_alignParentStart="true">
+                    android:layout_width="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/relativeLayout">
 
 
                         <TextView
-                            android:text="Start"
+                            android:id="@+id/nursing_detail_start_textview"
+                            style="@style/subHeaderTextViewStyle"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
                             android:layout_marginStart="13dp"
                             android:layout_marginTop="14dp"
-                            android:id="@+id/nursing_detail_start_textview"
-                            android:layout_alignParentTop="true"
-                            style="@style/subHeaderTextViewStyle"
-                            />
+                            android:text="Start" />
 
                         <TextView
-                            android:text="2/28/2017"
+                            android:id="@+id/nursing_detail_start_date_textview"
+                            style="@style/valueTextViewStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/nursing_detail_start_date_textview"
                             android:layout_alignBaseline="@+id/nursing_detail_start_textview"
                             android:layout_alignBottom="@+id/nursing_detail_start_textview"
-                            android:layout_toEndOf="@+id/nursing_detail_start_textview"
                             android:layout_marginStart="79dp"
-                            style="@style/valueTextViewStyle"
-                            />
+                            android:layout_toEndOf="@+id/nursing_detail_start_textview"
+                            android:text="2/28/2017" />
 
                         <TextView
-                            android:text="10:54 am"
+                            android:id="@+id/nursing_detail_start_time_textview"
+                            style="@style/valueTextViewStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/nursing_detail_start_time_textview"
-                            android:layout_marginStart="22dp"
                             android:layout_alignBaseline="@+id/nursing_detail_start_date_textview"
                             android:layout_alignBottom="@+id/nursing_detail_start_date_textview"
+                            android:layout_marginStart="22dp"
                             android:layout_toEndOf="@+id/nursing_detail_start_date_textview"
-                            style="@style/valueTextViewStyle"
-                            />
+                            android:text="10:54 am" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -250,54 +246,51 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="0dp"
                     style="@style/sectionHeaderBgStyle"
-                    >
+                    android:layout_width="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp">
 
                         <TextView
-                            android:text="Weight"
+                            android:id="@+id/nursing_detail_weight_textview"
                             style="@style/sectionHeaderTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
                             android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginStart="13dp"
-                            android:id="@+id/nursing_detail_weight_textview" />
+                            android:text="Weight" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
                     style="@style/sectionValueBgStyle"
-                    android:layout_below="@+id/relativeLayout"
-                    android:layout_alignParentStart="true">
+                    android:layout_width="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/relativeLayout">
 
 
                         <TextView
-                            android:text="Before"
+                            android:id="@+id/nursing_detail_weight_before_textview"
+                            style="@style/subHeaderTextViewStyle"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
                             android:layout_marginStart="13dp"
                             android:layout_marginTop="14dp"
-                            android:id="@+id/nursing_detail_weight_before_textview"
-                            android:layout_alignParentTop="true"
-                            style="@style/subHeaderTextViewStyle"
-                            />
+                            android:text="Before" />
 
                         <TextView
-                            android:text="6 lb 2 oz"
+                            android:id="@+id/nursing_detail_weight_before_value_textview"
+                            style="@style/valueTextViewStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/nursing_detail_weight_before_value_textview"
                             android:layout_alignBaseline="@+id/nursing_detail_weight_before_textview"
                             android:layout_alignBottom="@+id/nursing_detail_weight_before_textview"
-                            android:layout_toEndOf="@+id/nursing_detail_weight_before_textview"
                             android:layout_marginStart="79dp"
-                            style="@style/valueTextViewStyle"
-                            />
+                            android:layout_toEndOf="@+id/nursing_detail_weight_before_textview"
+                            android:text="6 lb 2 oz" />
                 </RelativeLayout>
 
                 <RelativeLayout

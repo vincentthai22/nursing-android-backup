@@ -1,5 +1,7 @@
 package com.sevenlogics.babynursing.Couchbase;
 
+import com.sevenlogics.babynursing.utils.CgUtils;
+
 import java.util.Date;
 
 /**
@@ -21,4 +23,10 @@ public class GeneralTracking extends BaseEntity
     public Date startTime;
     public Number filterNotDisplay;
 //    public CBLBaby TrackingBaby;
+
+    public String getStartTimeString()
+    {
+        return CgUtils.timeFormat.format(this.startTime).toLowerCase();
+    }
+
 }

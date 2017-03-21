@@ -1,6 +1,7 @@
 package com.sevenlogics.babynursing;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.sevenlogics.babynursing.Couchbase.Nursing;
 import com.sevenlogics.babynursing.Couchbase.UserSettings;
 import com.sevenlogics.babynursing.TableSection.NursingDailyTableSection;
 import com.sevenlogics.babynursing.TableSection.NursingSummaryTableSection;
@@ -29,6 +31,8 @@ public class NursingAdapter extends SectionAdapter
     private Context context;
     private android.view.LayoutInflater inflater;
 
+    public Boolean noRecordsForDateRange = false;
+
     public void setupData(ArrayList<Object> tableSections)
     {
         this.tableSections = tableSections;
@@ -43,7 +47,8 @@ public class NursingAdapter extends SectionAdapter
 
 
     @Override
-    public int numberOfSections() {
+    public int numberOfSections()
+    {
         return tableSections.size();
     }
 
@@ -58,13 +63,24 @@ public class NursingAdapter extends SectionAdapter
             {
                 NursingSummaryTableSection summaryTableSection = (NursingSummaryTableSection)sectionObject;
 
-                return summaryTableSection.sectionData.size();
+                if (noRecordsForDateRange)
+                {
+                    return 1;
+                }
+                else
+                {
+                    //this should always be 0
+                    return summaryTableSection.sectionData.size();
+                }
             }
             else if (sectionObject.getClass() == NursingDailyTableSection.class)
             {
                 NursingDailyTableSection dailyTableSection = (NursingDailyTableSection)sectionObject;
 
-                return dailyTableSection.sectionData.size();
+//                if (dailyTableSection.expanded)
+//                {
+                    return dailyTableSection.sectionData.size();
+//                }
             }
         }
 
@@ -79,6 +95,10 @@ public class NursingAdapter extends SectionAdapter
 
         if (sectionObject.getClass() == NursingSummaryTableSection.class)
         {
+            //Summary section should not have any data, apart from no Records
+            if (noRecordsForDateRange)
+                return noRecordsForDateRange;
+
             NursingSummaryTableSection nursingSummaryTableSection = (NursingSummaryTableSection)sectionObject;
 
             return nursingSummaryTableSection.sectionData.get(row);
@@ -94,14 +114,14 @@ public class NursingAdapter extends SectionAdapter
     }
 
     @Override
-    public boolean hasSectionHeaderView(int section) {
+    public boolean hasSectionHeaderView(int section)
+    {
         return true;
     }
 
-
-
     @Override
-    public int getSectionHeaderViewTypeCount() {
+    public int getSectionHeaderViewTypeCount()
+    {
         return 2;
     }
 
@@ -119,36 +139,113 @@ public class NursingAdapter extends SectionAdapter
             return 1;
         }
 
+        return 1;
+    }
+
+    @Override
+    public int getRowItemViewType(int section, int row)
+    {
+        Object object = getRowItem(section, row);
+
+        if (object.getClass() == EmptySlotData.class)
+        {
+            return 0;
+        }
+        else if (object.getClass() == Nursing.class)
+        {
+            return 1;
+        }
+        else if (object.getClass() == Boolean.class)
+        {
+            return 2;
+        }
+
         return 0;
+    }
+
+    @Override
+    public int getRowViewTypeCount()
+    {
+        return 3;
     }
 
     @Override
     public View getRowView(int section, int row, View convertView, ViewGroup parent)
     {
-        ViewHolderTimeline viewHolderTimeline;
-
-        if (convertView == null)
-        {
-            convertView = this.inflater.inflate(R.layout.list_item_timeline,parent, false);
-            viewHolderTimeline = new ViewHolderTimeline();
-            viewHolderTimeline.timeTextView = (TextView)convertView.findViewById(R.id.list_item_timeline_textview);
-
-            convertView.setTag(viewHolderTimeline);
-        }
-        else
-        {
-            viewHolderTimeline = (ViewHolderTimeline) convertView.getTag();
-        }
-
         Object object = getRowItem(section, row);
 
         if (object.getClass() == EmptySlotData.class)
         {
             EmptySlotData emptySlotData = (EmptySlotData)object;
+
+            ViewHolderTimeline viewHolderTimeline;
+
+            if (convertView == null)
+            {
+                convertView = this.inflater.inflate(R.layout.list_item_timeline,parent, false);
+                viewHolderTimeline = new ViewHolderTimeline();
+                viewHolderTimeline.timeTextView = (TextView)convertView.findViewById(R.id.list_item_timeline_textview);
+
+                convertView.setTag(viewHolderTimeline);
+            }
+            else
+            {
+                viewHolderTimeline = (ViewHolderTimeline) convertView.getTag();
+            }
+
             viewHolderTimeline.timeTextView.setText(emptySlotData.getDateString());
         }
+        else if (object.getClass() == Nursing.class)
+        {
+            Nursing nursing = (Nursing)object;
 
+            ViewHolderTimeline viewHolderTimeline;
 
+            if (convertView == null)
+            {
+                convertView = this.inflater.inflate(R.layout.list_item_nursing,parent, false);
+                viewHolderTimeline = new ViewHolderTimeline();
+                viewHolderTimeline.timeTextView = (TextView)convertView.findViewById(R.id.list_item_nursing_time_textview);
+                viewHolderTimeline.durationTextView = (TextView)convertView.findViewById(R.id.list_item_nursing_duration_textview);
+                viewHolderTimeline.dataTypeTextView = (TextView)convertView.findViewById(R.id.list_item_nursing_datatype_textview);
+                viewHolderTimeline.breastTextView = (TextView)convertView.findViewById(R.id.list_item_nursing_breast_textview);
+                convertView.setTag(viewHolderTimeline);
+            }
+            else
+            {
+                viewHolderTimeline = (ViewHolderTimeline) convertView.getTag();
+            }
+
+            viewHolderTimeline.timeTextView.setText(nursing.getStartTimeString());
+
+            if (nursing.leftBreast)
+            {
+                viewHolderTimeline.breastTextView.setText("L");
+            }
+            else
+            {
+                viewHolderTimeline.breastTextView.setText("R");
+            }
+
+            if (UserSettings.getInstance().nursingTrackingSetting.dataType == AppConstants.DataType.Time.ordinal())
+            {
+                float duration = nursing.duration.floatValue() / 60;
+                viewHolderTimeline.durationTextView.setText(CgUtils.stringWithFormat("#.1",duration));
+
+                if (duration != 1.0)
+                {
+                    viewHolderTimeline.dataTypeTextView.setText("mins");
+                }
+                else
+                {
+                    viewHolderTimeline.dataTypeTextView.setText("min");
+                }
+            }
+        }
+        else    //noRecordsForDateRange
+        {
+            convertView = inflater.inflate(R.layout.list_item_no_record, parent, false);
+        }
 
         return convertView;
     }
@@ -185,6 +282,8 @@ public class NursingAdapter extends SectionAdapter
 
             viewHolder.summaryTextView.setText(summaryTableSection.title);
 
+            Log.d(TAG, "Summary section header view " + summaryTableSection.title);
+
             if (summaryTableSection.summaryType == AppConstants.SummaryType.Accumulative)
             {
                 viewHolder.summaryTypeTextView.setText(AppConstants.CUMULATIVE_SUMMARY);
@@ -196,70 +295,70 @@ public class NursingAdapter extends SectionAdapter
 
             if (summaryTableSection.breastType == AppConstants.BreastType.LEFT)
             {
-                viewHolder.valueTextView1.setText(CgUtils.stringWithFormat("#.0",summaryTableSection.leftBreastCount));
+                viewHolder.valueTextView1.setText(CgUtils.stringWithFormat("#0.0",summaryTableSection.leftBreastCount));
 
                 if (summaryTableSection.dataType == AppConstants.DataType.Time.ordinal())
                 {
-                    viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.leftBreastAvgInSeconds / 60.0));
-                    viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.leftBreastTotalInSeconds / 60.0));
+                    viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.leftBreastAvgInSeconds / 60.0));
+                    viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.leftBreastTotalInSeconds / 60.0));
                 }
                 else
                 {
                     if (summaryTableSection.amountType.equals(AppConstants.VOLUME_TYPE_ML))
                     {
-                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.0",summaryTableSection.leftBreastAvgAmount));
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.0",summaryTableSection.leftBreastTotalAmount));
+                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.0",summaryTableSection.leftBreastAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.0",summaryTableSection.leftBreastTotalAmount));
                     }
                     else
                     {
-                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.leftBreastAvgAmount));
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.leftBreastTotalAmount));
+                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.leftBreastAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.leftBreastTotalAmount));
                     }
                 }
             }
             else if (summaryTableSection.breastType == AppConstants.BreastType.RIGHT)
             {
-                viewHolder.valueTextView1.setText(CgUtils.stringWithFormat("#.0",summaryTableSection.rightBreastCount));
+                viewHolder.valueTextView1.setText(CgUtils.stringWithFormat("#0.0",summaryTableSection.rightBreastCount));
 
                 if (summaryTableSection.dataType == AppConstants.DataType.Time.ordinal())
                 {
-                    viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.rightBreastAvgInSeconds / 60.0));
-                    viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.rightBreastTotalInSeconds / 60.0));
+                    viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.rightBreastAvgInSeconds / 60.0));
+                    viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.rightBreastTotalInSeconds / 60.0));
                 }
                 else
                 {
                     if (summaryTableSection.amountType.equals(AppConstants.VOLUME_TYPE_ML))
                     {
-                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.0",summaryTableSection.rightBreastAvgAmount));
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.0",summaryTableSection.rightBreastTotalAmount));
+                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.0",summaryTableSection.rightBreastAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.0",summaryTableSection.rightBreastTotalAmount));
                     }
                     else
                     {
-                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.rightBreastAvgAmount));
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.rightBreastTotalAmount));
+                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.rightBreastAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.rightBreastTotalAmount));
                     }
                 }
             }
             else
             {
-                viewHolder.valueTextView1.setText(CgUtils.stringWithFormat("#.0",summaryTableSection.bothBreastCount));
+                viewHolder.valueTextView1.setText(CgUtils.stringWithFormat("#0.0",summaryTableSection.bothBreastCount));
 
                 if (summaryTableSection.dataType == AppConstants.DataType.Time.ordinal())
                 {
-                    viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.bothBreastAvgInSeconds / 60.0));
-                    viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.bothBreastTotalInSeconds / 60.0));
+                    viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.bothBreastAvgInSeconds / 60.0));
+                    viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.bothBreastTotalInSeconds / 60.0));
                 }
                 else
                 {
                     if (summaryTableSection.amountType.equals(AppConstants.VOLUME_TYPE_ML))
                     {
-                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.0",summaryTableSection.bothBreastAvgAmount));
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.0",summaryTableSection.bothBreastTotalAmount));
+                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.0",summaryTableSection.bothBreastAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.0",summaryTableSection.bothBreastTotalAmount));
                     }
                     else
                     {
-                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.bothBreastAvgAmount));
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.bothBreastTotalAmount));
+                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.bothBreastAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.bothBreastTotalAmount));
                     }
                 }
             }
@@ -271,12 +370,12 @@ public class NursingAdapter extends SectionAdapter
                     if (summaryTableSection.amountType.equals(AppConstants.VOLUME_TYPE_ML))
                     {
                         viewHolder.headerTextView3.setText(AppConstants.ML_TOTAL + " (bottle)");
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.0",summaryTableSection.bottleTotalAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.0",summaryTableSection.bottleTotalAmount));
                     }
                     else
                     {
                         viewHolder.headerTextView3.setText(AppConstants.OZ_TOTAL + " (bottle)");
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.bottleTotalAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.bottleTotalAmount));
                     }
                 }
                 else
@@ -284,18 +383,15 @@ public class NursingAdapter extends SectionAdapter
                     if (summaryTableSection.amountType.equals(AppConstants.VOLUME_TYPE_ML))
                     {
                         viewHolder.headerTextView3.setText(AppConstants.ML_AVG + " (bottle)");
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.0",summaryTableSection.bottleAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.0",summaryTableSection.bottleAvgAmount));
                     }
                     else
                     {
                         viewHolder.headerTextView3.setText(AppConstants.OZ_TOTAL + " (bottle)");
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",summaryTableSection.bottleAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",summaryTableSection.bottleAvgAmount));
                     }
                 }
             }
-
-
-            return convertView;
         }
         else if (sectionObject.getClass() == NursingDailyTableSection.class)
         {
@@ -319,7 +415,7 @@ public class NursingAdapter extends SectionAdapter
                 viewHolder = (ViewHolderNursingSummary) convertView.getTag();
             }
 
-            NursingDailyTableSection dailyTableSection = (NursingDailyTableSection)sectionObject;
+            final NursingDailyTableSection dailyTableSection = (NursingDailyTableSection)sectionObject;
 
             if (CgUtils.isToday(dailyTableSection.date))
             {
@@ -355,70 +451,70 @@ public class NursingAdapter extends SectionAdapter
 
             if (dailyTableSection.breastType == AppConstants.BreastType.LEFT)
             {
-                viewHolder.valueTextView1.setText(CgUtils.stringWithFormat("#.0",dailyTableSection.leftBreastCount + dailyTableSection.bottleOnlyGroupCount));
+                viewHolder.valueTextView1.setText(CgUtils.stringWithFormat("#0.0",dailyTableSection.leftBreastCount + dailyTableSection.bottleOnlyGroupCount));
 
                 if (dailyTableSection.dataType == AppConstants.DataType.Time.ordinal())
                 {
-                    viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.1",dailyTableSection.leftBreastAvgInSeconds / 60));
-                    viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",dailyTableSection.leftBreastTotalInSeconds / 60));
+                    viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.1",dailyTableSection.leftBreastAvgInSeconds / 60));
+                    viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",dailyTableSection.leftBreastTotalInSeconds / 60));
                 }
                 else
                 {
                     if (dailyTableSection.amountType.equals(AppConstants.VOLUME_TYPE_ML))
                     {
-                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.0",dailyTableSection.leftBreastAvgAmount));
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.0",dailyTableSection.leftBreastTotalAmount));
+                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.0",dailyTableSection.leftBreastAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.0",dailyTableSection.leftBreastTotalAmount));
                     }
                     else
                     {
-                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.1",dailyTableSection.leftBreastAvgAmount));
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",dailyTableSection.leftBreastTotalAmount));
+                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.1",dailyTableSection.leftBreastAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",dailyTableSection.leftBreastTotalAmount));
                     }
                 }
             }
             else if (dailyTableSection.breastType == AppConstants.BreastType.RIGHT)
             {
-                viewHolder.valueTextView1.setText(CgUtils.stringWithFormat("#.0",dailyTableSection.rightBreastCount + dailyTableSection.bottleOnlyGroupCount));
+                viewHolder.valueTextView1.setText(CgUtils.stringWithFormat("#0.0",dailyTableSection.rightBreastCount + dailyTableSection.bottleOnlyGroupCount));
 
                 if (dailyTableSection.dataType == AppConstants.DataType.Time.ordinal())
                 {
-                    viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.1",dailyTableSection.rightBreastAvgInSeconds / 60));
-                    viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",dailyTableSection.rightBreastTotalInSeconds / 60));
+                    viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.1",dailyTableSection.rightBreastAvgInSeconds / 60));
+                    viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",dailyTableSection.rightBreastTotalInSeconds / 60));
                 }
                 else
                 {
                     if (dailyTableSection.amountType.equals(AppConstants.VOLUME_TYPE_ML))
                     {
-                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.0",dailyTableSection.rightBreastAvgAmount));
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.0",dailyTableSection.rightBreastTotalAmount));
+                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.0",dailyTableSection.rightBreastAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.0",dailyTableSection.rightBreastTotalAmount));
                     }
                     else
                     {
-                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.1",dailyTableSection.rightBreastAvgAmount));
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",dailyTableSection.rightBreastTotalAmount));
+                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.1",dailyTableSection.rightBreastAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",dailyTableSection.rightBreastTotalAmount));
                     }
                 }
             }
             else
             {
-                viewHolder.valueTextView1.setText(CgUtils.stringWithFormat("#.0",dailyTableSection.bothBreastCount + dailyTableSection.bottleOnlyGroupCount));
+                viewHolder.valueTextView1.setText(CgUtils.stringWithFormat("#0.0",dailyTableSection.bothBreastCount + dailyTableSection.bottleOnlyGroupCount));
 
                 if (dailyTableSection.dataType == AppConstants.DataType.Time.ordinal())
                 {
-                    viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.1",dailyTableSection.bothBreastAvgInSeconds / 60));
-                    viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",dailyTableSection.bothBreastTotalInSeconds / 60));
+                    viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.1",dailyTableSection.bothBreastAvgInSeconds / 60));
+                    viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",dailyTableSection.bothBreastTotalInSeconds / 60));
                 }
                 else
                 {
                     if (dailyTableSection.amountType.equals(AppConstants.VOLUME_TYPE_ML))
                     {
-                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.0",dailyTableSection.bothBreastAvgAmount));
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.0",dailyTableSection.bothBreastTotalAmount));
+                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.0",dailyTableSection.bothBreastAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.0",dailyTableSection.bothBreastTotalAmount));
                     }
                     else
                     {
-                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#.1",dailyTableSection.bothBreastAvgAmount));
-                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#.1",dailyTableSection.bothBreastTotalAmount));
+                        viewHolder.valueTextView2.setText(CgUtils.stringWithFormat("#0.1",dailyTableSection.bothBreastAvgAmount));
+                        viewHolder.valueTextView3.setText(CgUtils.stringWithFormat("#0.1",dailyTableSection.bothBreastTotalAmount));
                     }
                 }
             }
@@ -437,21 +533,39 @@ public class NursingAdapter extends SectionAdapter
                 }
             }
 
-            return convertView;
+            final NursingAdapter adapter = this;
+
+            convertView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view) {
+                    Log.d(TAG, "Section view clicked");
+                    //toggle the expanded
+                    dailyTableSection.expanded = !dailyTableSection.expanded;
+                    adapter.notifyDataSetChanged();
+                }
+            });
         }
 
-        return null;
+        return convertView;
     }
 
     @Override
-    public void onRowItemClick(AdapterView<?> parent, View view, int section, int row, long id) {
-//        super.onRowItemClick(parent, view, section, row, id);
-//        Toast.makeText(DemoActivity.this, "Section " + section + " Row " + row, Toast.LENGTH_SHORT).show();
+    public void onRowItemClick(AdapterView<?> parent, View view, int section, int row, long id)
+    {
+//        Intent intent = new Intent(this,NursingDetailActivity.class);
+//
+//        intent.putExtra(MainActivity.INTENT_KEY_BABY_ID,mBaby.document.getId());
+//
+//        startActivity(intent);
     }
 
     private static class ViewHolderTimeline
     {
         public TextView timeTextView;
+        public TextView dataTypeTextView;
+        public TextView durationTextView;
+        public TextView breastTextView;
     }
 
 

@@ -43,4 +43,7 @@
     <string name="string_birthplace">Birthplace</string>
     <string name="string_take_photo">Take Photo</string>
     <string name="string_choose_from_gallery">Choose from Gallery</string>
+    <string name="add_pumping">Add</string>
+    <string name="new_pumping">New Pumping</string>
+    <string name="done">Done</string>
 </resources>

@@ -35,7 +35,14 @@
         <activity
             android:name=".NursingDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".PumpingActivity"
+            android:label="Pumping"
+            android:theme="@style/PumpingTheme"/>
+        <activity
+            android:name=".PumpingDetailActivity"
+            android:label="New Pumping"
+            android:theme="@style/PumpingTheme"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

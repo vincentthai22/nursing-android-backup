@@ -89,4 +89,24 @@
         <item name="android:layout_height">50dp</item>
     </style>
 
+    <style name="PumpingTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryPumping</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkPumping</item>
+        <item name="colorAccent">@color/colorAccentPumping</item>
+    </style>
+    <style name="PumpingTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="PumpingTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="PumpingTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="PumpingTheme.CollapsedToolbar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+    <style name="PumpingTheme.ExpandedToolbar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+
 </resources>
