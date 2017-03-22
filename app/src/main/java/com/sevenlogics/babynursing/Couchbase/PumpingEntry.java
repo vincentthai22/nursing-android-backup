@@ -1,6 +1,7 @@
 package com.sevenlogics.babynursing.Couchbase;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,6 +12,7 @@ public class PumpingEntry {
 
     private int totalPumps;
     private float averageWeight, totalWeight;
+    private Date date;
 
     private List<String> pumpingRecords;
 
@@ -26,6 +28,7 @@ public class PumpingEntry {
                 pumpingRecords.add(i-12+":00 pm");
 
         }
+        date = new Date();
     }
 
 

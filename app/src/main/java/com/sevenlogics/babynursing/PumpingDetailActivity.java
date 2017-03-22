@@ -9,10 +9,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +26,7 @@ import android.widget.TextView;
 import com.sevenlogics.babynursing.utils.CgBottomSheetDialog;
 import com.sevenlogics.babynursing.utils.CgUtils;
 import com.sevenlogics.babynursing.utils.PermissionUtils;
+import com.sevenlogics.babynursing.utils.PumpingAlertDialogFragment;
 
 import java.io.File;
 import java.math.RoundingMode;
@@ -39,11 +43,16 @@ import java.util.Locale;
 public class PumpingDetailActivity extends AppCompatActivity {
 
     private static final String TAG = PumpingDetailActivity.class.getSimpleName();
+    static final int REQUEST_CODE_FOR_NOTE = 2;
     private TextView mStartDetailTextView, mEndDetailTextView, mDurationDetailTextView,
             mAmountPumpedDetailTextView, mleftBreastTextView, mRightBreastTextView;
     private BottomSheetDialog cameraBottomSheet;
     private Uri imageUri;
-    String path;
+    private String path;
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
+    private PumpingAlertDialogFragment dialogFragment;
+    private FragmentManager fm;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -66,21 +75,36 @@ public class PumpingDetailActivity extends AppCompatActivity {
         DecimalFormat df = new DecimalFormat("#.#");
         df.setRoundingMode(RoundingMode.CEILING);
         mAmountPumpedDetailTextView.setText( df.format(leftBreast + rightBreast) + " ozs");
-
+        builder = new AlertDialog.Builder(this);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        setupAmountPumpedDialogs();
+
 
     }
 
+    public void setupAmountPumpedDialogs(){
+
+        fm = getSupportFragmentManager();
+    }
+
     public void onClickHandler(View v){
+
+
+
         switch(v.getId()) {
             case R.id.amountPumpedTextView:
             case R.id.amountPumpedDetailTextView:
             case R.id.amountPumpedRelativeLayout:
+                dialogFragment = PumpingAlertDialogFragment.newInstance("Enter left and/or right amount",
+                        "Please enter the amount pumped by entering the individual left or right breast amount");
+                dialogFragment.show(fm, "alert_dialog");
                 Log.d("click", "show number picker");
                 break;
             case R.id.leftBreastTextView:
             case R.id.leftBreastDetailTextView:
             case R.id.leftBreastRelativeLayout:
+
                 Log.d("click", "show number picker");
                 break;
             case R.id.rightBreastTextView:
@@ -112,6 +136,8 @@ public class PumpingDetailActivity extends AppCompatActivity {
             case R.id.notesDetailTextView:
             case R.id.notesRelativeLayout:
                 Log.d("click", "show number picker");
+                Intent intent = new Intent(this, PumpingNoteActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_FOR_NOTE);
                 break;
             case R.id.addTextView:
             case R.id.addDetailTextView:
@@ -121,6 +147,17 @@ public class PumpingDetailActivity extends AppCompatActivity {
 
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        String s = ((SpannableString) data.getExtras().get(PumpingNoteActivity.NOTE_KEY)).toString();
+        if (s.length() > 0){
+            TextView notesTextView = (TextView) findViewById(R.id.notesDetailTextView);
+            notesTextView.setText(s);
+        }
+
+    }
+
     void showCameraBottomSheet(final Activity activity) {
         /** This method will display the bottomsheet when clicked on camera floating action button*/
         cameraBottomSheet = new CgBottomSheetDialog(activity);

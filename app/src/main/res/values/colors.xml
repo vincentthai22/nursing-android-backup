@@ -13,5 +13,8 @@
     <color name="colorPrimaryPumping">#ff9800</color>
     <color name="colorPrimaryDarkPumping">#f57c00</color>
     <color name="colorAccentPumping">#ffab00</color>
+    <color name="lightGray">#e2e2e2</color>
+    <color name="darkerLightGray">#c6c6c6</color>
+    <color name="Blue">#2462d4</color>
 
 </resources>

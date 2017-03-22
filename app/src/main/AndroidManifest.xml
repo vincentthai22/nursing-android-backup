@@ -38,11 +38,18 @@
         <activity
             android:name=".PumpingActivity"
             android:label="Pumping"
-            android:theme="@style/PumpingTheme"/>
+            android:theme="@style/PumpingTheme"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".PumpingDetailActivity"
             android:label="New Pumping"
-            android:theme="@style/PumpingTheme"/>
+            android:theme="@style/PumpingTheme"
+            android:parentActivityName=".PumpingActivity"/>
+        <activity android:name=".PumpingNoteActivity"
+            android:label="Notes"
+            android:theme="@style/PumpingTheme"
+            android:parentActivityName=".PumpingDetailActivity"
+            android:windowSoftInputMode="stateAlwaysVisible"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
